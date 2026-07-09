@@ -1,0 +1,17 @@
+spring:
+  config:
+    import: "optional:classpath:env.properties"
+  datasource:
+    url: "jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=disable"
+    username: "${DB_USER}"
+    password: "${DB_PASSWORD}"
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+      default_schema: public
+      temp:
+        use_jdbc_metadata_defaults: false
+
+
