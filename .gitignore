@@ -40,5 +40,6 @@ out/
 .openapi-generator/
 java-generated/
 
-env.properties
+.env.properties
+.env.docker
 env.test.properties
