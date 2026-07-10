@@ -43,3 +43,5 @@ java-generated/
 .env.properties
 .env.docker
 env.test.properties
+
+test-results/

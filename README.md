@@ -66,6 +66,14 @@ We take testing seriously! To verify the correctness of our application, run the
 
 During execution junit reports are generated in the `build/test-results/test` folder.
 
+You can also use the provided backend test runner script:
+
+```bash
+./run-tests.sh
+```
+
+This script runs the backend tests and copies the generated JUnit XML reports into `test-results/`.
+
 ## Packaging
 
 When you’re ready to package the application for deployment, create a deployable WAR file:
