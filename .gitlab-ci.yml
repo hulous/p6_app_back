@@ -1,6 +1,7 @@
 stages:
   - test
   - build
+  - release
 
 variables:
   GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
@@ -38,3 +39,18 @@ build-image:
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
     - docker tag "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE:latest"
     - docker push "$CI_REGISTRY_IMAGE:latest"
+
+release:
+  image: node:20
+  stage: release
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  needs:
+    - backend-tests
+  before_script:
+    - npm install
+  variables:
+    GL_TOKEN: "$CI_JOB_TOKEN"
+    GITLAB_TOKEN: "$CI_JOB_TOKEN"
+  script:
+    - npx semantic-release
