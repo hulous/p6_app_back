@@ -1,0 +1,25 @@
+stages:
+  - test
+
+variables:
+  GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
+
+backend-tests:
+  image: gradle:8.6-jdk17
+  stage: test
+  script:
+    - chmod +x ./run-tests.sh
+    - ./run-tests.sh
+  artifacts:
+    when: always
+    paths:
+      - test-results/**/*.xml
+      - build/test-results/**/*.xml
+    expire_in: 1 week
+
+frontend-tests:
+  stage: test
+  trigger:
+    project: ocr_courses/p6_app_front
+    branch: main
+    strategy: depend
