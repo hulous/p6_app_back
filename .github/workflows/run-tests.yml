@@ -28,6 +28,16 @@ jobs:
       - name: Make test script executable
         run: chmod +x ./run-tests.sh
 
+      - name: Create .env.properties from secrets
+        run: |
+          cat > .env.properties <<'EOF'
+          DB_HOST=${{ secrets.DB_HOST }}
+          DB_PORT=${{ secrets.DB_PORT }}
+          DB_NAME=${{ secrets.DB_NAME }}
+          DB_USER=${{ secrets.DB_USER }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          EOF
+
       - name: Run tests
         env:
           ORG_GRADLE_PROJECT_org.gradle.java.home: ''
