@@ -11,7 +11,12 @@ rm -rf "$REPORT_DIR"/*
 
 cd "$PROJECT_DIR"
 
-"$PROJECT_DIR/gradlew" test --no-daemon
+GRADLE_CMD=("$PROJECT_DIR/gradlew" test --no-daemon)
+if [ -n "${JAVA_HOME:-}" ]; then
+  GRADLE_CMD+=("-Dorg.gradle.java.home=$JAVA_HOME")
+fi
+
+"${GRADLE_CMD[@]}"
 EXIT_CODE=$?
 
 if [ -d "$BACKEND_RESULTS_DIR" ]; then
