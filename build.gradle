@@ -10,7 +10,14 @@ plugins {
 group = 'fr.oc.devops'
 version = project.findProperty('version') ?: '0.2.4'
 
-repositories {
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+	repositories {
 	mavenCentral()
 }
 
@@ -66,10 +73,13 @@ openApiGenerate {
 compileJava.dependsOn tasks.openApiGenerate
 
 test {
-	useJUnitPlatform()
-	testLogging {
-		events "passed", "skipped", "failed"
-	}
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 war {
